@@ -1,11 +1,11 @@
 import React from 'react'
+import Navbar from '../Pages/Navbar'
 
 const Layout = ({children}) => {
   return (
-    <div>
-        <h1>navbar</h1>
+    <div className='w-full bg-[url(/bg.webp)] bg-cover min-h-screen'>
+        <Navbar/>
         {children}
-        <h1>footer</h1>
     </div>
   )
 }
