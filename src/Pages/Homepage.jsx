@@ -27,7 +27,7 @@ const Homepage = () => {
 
       {/* Card Section */}
       <div className="flex flex-col sm:flex-row gap-4 mt-7 items-center">
-        <Card imgSrc="https://cdn.pixabay.com/photo/2024/04/12/11/59/ai-generated-8691773_640.jpg">
+        <Card imgSrc="rishant.jpg">
           Rishant
         </Card>
         <h1 className="text-2xl sm:text-3xl text-black font-bold">X</h1>
