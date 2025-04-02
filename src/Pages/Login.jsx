@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { form } from "framer-motion/client";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -9,36 +11,24 @@ const Login = () => {
   const [error, setError] = useState("");
 
   const handleChanges = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
 
-    if (!formData.email || !formData.password ) {
-      setError("Both fields are required!");
-      return;
-    }
-
-    try {
-      const response = await fetch("http://localhost:8000/api/v1/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message || "Login failed");
-
-      alert("Login successful!");
-      localStorage.setItem("token", data.token); // Store token if needed
-      setFormData({ email: "", password: "" });
+    try { 
+      const response = await axios.post(
+        'http://localhost:8000/api/v1/user/login', formData);
+      
+      console.log('Login Successful', response.data);
     } catch (errr) {
-      setError(errr.message);
+      setError(errr.response?.data?.message || "Login failed");
     }
   };
 
@@ -51,11 +41,11 @@ const Login = () => {
       <form onSubmit={handleSubmit} className="mt-4">
         <input
           type="text"
-          name="identifier"
-          placeholder="Username or Email"
-          value={formData.identifier}
+          name="email"
+          value={formData.email}
           onChange={handleChanges}
           className="w-full p-2 border rounded-md mb-3"
+          placeholder="Email" 
           required
         />
 
@@ -71,7 +61,8 @@ const Login = () => {
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+          className="w-full bg-blue-500 text-white p-2 rounded-md
+           hover:bg-blue-600"
         >
           Login
         </button>
