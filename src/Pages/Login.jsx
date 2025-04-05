@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { form } from "framer-motion/client";
+import { useNavigate } from "react-router-dom";
+import useGlobalUserObject from "../store/store";
 
 const Login = () => {
+  const setLogin=useGlobalUserObject((state)=>state.setLogin)
+  const navigate=useNavigate();
   const [formData, setFormData] = useState({
     email: "", 
     password: "",
@@ -27,6 +31,11 @@ const Login = () => {
         'http://localhost:8000/api/v1/user/login', formData);
       
       console.log('Login Successful', response.data);
+      // when the user logged in successfully we will update the global state and navigate to dashboard
+
+      localStorage.setItem("token", response.data.token);
+      setLogin(response.data)
+      navigate('/dashboard')
     } catch (errr) {
       setError(errr.response?.data?.message || "Login failed");
     }
