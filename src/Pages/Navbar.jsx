@@ -20,18 +20,28 @@ const Navbar = () => {
     }
 
   return (
-    <div className='py-3 px-5 flex justify-between items-center'>
-        <img className='w-[10rem]' 
-        src="https://www.cuchd.in/about/assets/images/cu-logo.png" alt="" />
-        <div>
+    <div className='px-10 flex justify-between items-center text-white bg-gradient-to-r from-red-500 to-orange-400'>
+        <Link to={"/"}> 
+        <div className='flex justify-between gap-5 items-center'>
+            <img className='w-[3rem] h-[5rem]' 
+            src="https://res.cloudinary.com/desku3g7e/image/upload/v1744180262/culogo_mlj3ao.jpg" 
+            alt="" />
+            <h1
+            className="text-green-100 text-4xl sm:text-4xl font-semibold"
+            >
+              Placement Cell, Chandigarh University
+            </h1>
+        </div> </Link>
+        <div className='flex justify-between items-center gap-10 text-2xl'> 
             {!loggedIn && <div className='flex gap-5'>
-            <Link to={"/login"}><Button>Login</Button></Link> 
-            <Link to={"/signup"}><Button>Sign Up</Button></Link></div>}
-            {loggedIn && 
-                <div className='flex gap-5'>
-                    <div onClick={handleLogout} to={'/login'}><Button>Logout</Button></div>
-                    <Link to={`/${user?.user?.name}`}><Button>{user?.user?.name}</Button></Link>
-                    
+              <Link to={"/#overview"}>Overview</Link>
+              <Link to={"/#process"}>Recruitment Process</Link>
+              <Link to={"/#Recruit"}>Why Recruit</Link>
+              <Link to={"/login"}>Login</Link> 
+        </div>}
+            {loggedIn && <div className='flex gap-5'>
+                <div onClick={handleLogout} to={'/login'}><Button>Logout</Button></div>
+                <Link to={`/${user?.user?.name}`}><Button>{user?.user?.name}</Button></Link>
                 </div>}
         </div>
     </div>

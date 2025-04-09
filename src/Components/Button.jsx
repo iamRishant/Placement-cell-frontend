@@ -2,8 +2,9 @@ import React from 'react'
 
 const Button = ({children}) => {
   return (
-    <button className='px-4 py-2 bg-[#EF0000] text-white rounded-full 
-    flex items-center justify-center hover:bg-black font-semibold cursor-pointer'>
+    <button className='px-4 py-2 bg-blue-500 text-white rounded-lg w-[28%]
+    flex items-center justify-center hover:scale-105 hover:bg-gradient-to-r
+    hover:from-blue-500 hover:to-purple-200 font-semibold cursor-pointer gap-3'>
       {children}</button>
   )
 }
