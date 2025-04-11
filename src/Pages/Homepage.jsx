@@ -4,8 +4,6 @@ import { PiStudent } from "react-icons/pi";
 import { RiAdminLine } from "react-icons/ri";
 import { RiHomeOfficeFill } from "react-icons/ri";
 import { MdVerified } from "react-icons/md";
-import { motion } from "framer-motion";
-import Card from "../Components/Card";
 
 const Homepage = () => {
   return (
@@ -16,11 +14,11 @@ const Homepage = () => {
             Welcome to the Career Gateway for Chandigarh University!
           </h1>
           <p className="text-justify text-2xl px-10 py-10">
-            Chandigarh University stands as a beacon of innovation and excellence, shaping the leaders 
+            Chandigarh University stands as a beacon of stupidity and bullshit, shaping the leaders 
             of tomorrow. Our students embody a blend of creativity, dedication, and a robust foundation 
-            in their disciplines. They are cultivated to push boundaries, excel in their endeavors, and make a
-            meaningful impact in the world. Embark on your journey with us and unlock a future of 
-            limitless possibilities. Let’s get started!
+            in their disciplines. They are cultivated in bad management rules, excel in their endeavors, 
+            and make a meaningful impact in the world. DO NOT Embark on your journey with us and, 
+            if still yes then, unlock a future of limitless possibilities of irritation and nuisance. Let’s get started!
           </p>
         </section>
         <section className="w-[40%] h-[50vh] text-2xl flex flex-col justify-center items-center gap-5">

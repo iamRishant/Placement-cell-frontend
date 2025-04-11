@@ -56,7 +56,7 @@ const SignUp = () => {
       formDataToSend.append("password", formData.password);
       formDataToSend.append("role", formData.role);
       formDataToSend.append("resume", formData.resume);
-
+      
       const response = await fetch("http://localhost:8000/api/v1/user/signup", {
         method: "POST",
         body: formDataToSend,
