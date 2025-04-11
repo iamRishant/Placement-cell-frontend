@@ -41,7 +41,7 @@ const Navbar = () => {
         </div>}
             {loggedIn && <div className='flex gap-5'>
                 <div onClick={handleLogout} to={'/login'}><Button>Logout</Button></div>
-                <Link to={`/${user?.user?.name}`}><Button>{user?.user?.name}</Button></Link>
+                <Link to={`/${user?.name}`}><Button>{user?.name}</Button></Link>
                 </div>}
         </div>
     </div>

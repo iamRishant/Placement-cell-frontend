@@ -34,6 +34,7 @@ const Login = () => {
       // when the user logged in successfully we will update the global state and navigate to dashboard
 
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("currUser",JSON.stringify(response.data.user));
       setLogin(response.data)
       navigate('/dashboard')
     } catch (errr) {
