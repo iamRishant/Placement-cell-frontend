@@ -8,6 +8,7 @@ import Dashboard from './Pages/Dashboard'
 import UserProfile from './Pages/UserProfile'
 import Protected from './Pages/AuthLayout'
 import useGlobalUserObject from './store/store'
+import RegisterCompany from './Pages/RegisterCompany'
 
 const App = () => {
 
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/signup" element={<Protected authentication={false}><SignUp /></Protected>} />
         <Route path="/dashboard" element={<Protected authentication={true}><Dashboard /></Protected>} />
         <Route path='/:name' element={<Protected authentication={true}><UserProfile /></Protected>} />
+        <Route path='/register-company' element={<RegisterCompany/>}></Route>
       </Routes>
     </Layout>
   )
