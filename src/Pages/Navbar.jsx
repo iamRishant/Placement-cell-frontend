@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import Button from '../Components/Button';
 import useGlobalUserObject from '../store/store';
 
 const Navbar = () => {
@@ -20,7 +19,8 @@ const Navbar = () => {
     }
 
   return (
-    <div className='px-10 flex justify-between items-center text-white bg-gradient-to-r from-red-500 to-orange-400'>
+    <div className='px-10 flex justify-between items-center text-white 
+    bg-gradient-to-r from-red-500 to-orange-400'>
         <Link to={"/"}> 
         <div className='flex justify-between gap-5 items-center'>
             <img className='w-[4rem] h-[5rem] p-2' 
@@ -40,8 +40,9 @@ const Navbar = () => {
               <Link to={"/login"}>Login</Link> 
         </div>}
             {loggedIn && <div className='flex gap-5'>
-                <div onClick={handleLogout} to={'/login'}><Button>Logout</Button></div>
-                <Link to={`/${user?.name}`}><Button>{user?.name}</Button></Link>
+                <Link to={"/dashboard"} className='hover:scale-90'>Dashboard</Link>
+                <div onClick={handleLogout} to={'/login'} className='hover:scale-90 px-5'>Logout</div>
+                <Link to={`/${user?.name}`} className='hover:scale-90 px-5><button '>{user?.name}</Link>
                 </div>}
         </div>
     </div>
