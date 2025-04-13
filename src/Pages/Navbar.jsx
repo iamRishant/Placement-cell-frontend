@@ -23,16 +23,16 @@ const Navbar = () => {
     <div className='px-10 flex justify-between items-center text-white bg-gradient-to-r from-red-500 to-orange-400'>
         <Link to={"/"}> 
         <div className='flex justify-between gap-5 items-center'>
-            <img className='w-[3rem] h-[5rem]' 
+            <img className='w-[4rem] h-[5rem] p-2' 
             src="https://res.cloudinary.com/desku3g7e/image/upload/v1744180262/culogo_mlj3ao.jpg" 
             alt="" />
             <h1
-            className="text-green-100 text-4xl sm:text-4xl font-semibold"
+            className="text-green-100 text-4xl sm:text-3xl font-semibold"
             >
               Placement Cell, Chandigarh University
             </h1>
         </div> </Link>
-        <div className='flex justify-between items-center gap-10 text-2xl'> 
+        <div className='flex justify-between items-center gap-10 text-2xl '> 
             {!loggedIn && <div className='flex gap-5'>
               <Link to={"/#overview"}>Overview</Link>
               <Link to={"/#process"}>Recruitment Process</Link>
