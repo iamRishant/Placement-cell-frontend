@@ -27,7 +27,7 @@ export const getStudentDashboard = async () => {
 
 export const registerCompany = async (companyData) => {
     try {
-        const respose = await axios.post("http://localhost:8000/api/v1/register-company", companyData, {
+        const response = await axios.post("http://localhost:8000/api/v1/register-company", companyData, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
                 'Content-Type': 'application/json'

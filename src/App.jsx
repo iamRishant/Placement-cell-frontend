@@ -27,7 +27,7 @@ const App = () => {
         <Route path="/signup" element={<Protected authentication={false}><SignUp /></Protected>} />
         <Route path="/dashboard" element={<Protected authentication={true}><Dashboard /></Protected>} />
         <Route path='/:name' element={<Protected authentication={true}><UserProfile /></Protected>} />
-        <Route path='/register-company' element={<RegisterCompany/>}></Route>
+        <Route path='/register-company' element={<Protected authentication={true}><RegisterCompany/></Protected>}></Route>
       </Routes>
     </Layout>
   )

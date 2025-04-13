@@ -41,7 +41,7 @@ const Navbar = () => {
         </div>}
             {loggedIn && <div className='flex gap-5'>
                 <Link to={"/dashboard"} className='hover:scale-90'>Dashboard</Link>
-                <div onClick={handleLogout} to={'/login'} className='hover:scale-90 px-5'>Logout</div>
+                <div onClick={handleLogout} className='hover:scale-90 px-5 cursor-pointer'>Logout</div>
                 <Link to={`/${user?.name}`} className='hover:scale-90 px-5><button '>{user?.name}</Link>
                 </div>}
         </div>
