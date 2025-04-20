@@ -1,14 +1,27 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+const Card = ({ company, isAdmin, isExpanded, setExpandedCardId }) => {
+  const cardRef = useRef(null);
 
-const Card = ({ company, isAdmin }) => {
+  useEffect(()=>{
+    const handleClickOutside = (event) => {
+      if(cardRef.current && !cardRef.current.contains(event.target)){
+        setExpandedCardId(null);
+      }
+    };
+    if(isExpanded){
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+  }, [isExpanded, setExpandedCardId]);
 
-  const [currCompany,setCurrCompany]=useState(company);
+  const [currCompany, setCurrCompany] = useState(company);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({ ...company });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleUpdateSubmit = (e) => {
@@ -16,8 +29,6 @@ const Card = ({ company, isAdmin }) => {
     console.log("Updated Data:", formData); // replace with your update logic
     setIsModalOpen(false);
   };
-
-  
 
   const handleUpdate = async () => {
     try {
@@ -32,63 +43,78 @@ const Card = ({ company, isAdmin }) => {
           ...formData,
         }),
       });
-  
+
       if (!response.ok) {
         throw new Error("Update failed");
       }
-  
+
       const result = await response.json();
       alert("Form data updated successfully");
       console.log("Response:", result);
       setCurrCompany(result.updatedCompany);
       setIsModalOpen(false);
-
     } catch (error) {
       console.error("Error updating company:", error);
       alert("Failed to update. Please try again.");
     }
   };
-  
 
   return (
     <>
-      <div className="bg-white shadow-md rounded-lg p-5">
-        <h3>{currCompany.companyName}</h3>
-        <p>{currCompany.companyInfo}</p>
+      <div
+        className={`bg-white shadow-md rounded-lg p-3 cursor-pointer bg-gradient-to-br
+          from-gray-900 via-gray-800 to-black text-white
+          ${isExpanded ? "fixed inset-0 z-50 bg-opacity-90 max-w-lg max-h-[80vh]" : ""}`}
+        onClick={() => setExpandedCardId(company._id)}
+        style={{ backdropFilter: isExpanded ? "blur(5px)" : "none" }}
+      >
+        <span className="flex justify-between items-center">
+          <h3>{currCompany.companyName}</h3>
+          {!isExpanded && (
+            <button className="px-4 py-2 rounded hover:scale-120"
+             onClick={(e) => e.stopPropagation()}
+            >
+              <a
+                href={currCompany.registerationLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Apply Now
+              </a>
+            </button>
+          )}  
+        </span>
 
-        <div>
-          <span>{currCompany.jobTitle}</span>
-          <span>{currCompany.payPackage}</span>
-        </div>
-
-        <p>{currCompany.jobDescription}</p>
-        <div>{currCompany.eligibility}</div>
-
-        {currCompany.bond && (
-          <div>
-            <p>Bond:</p>{currCompany.bondDescription}
-          </div>
-        )}
-
-        <div>
-          <strong>Apply by:</strong> {new Date(company.formDeadline).toLocaleDateString()}
-        </div>
-
-        <a
-          href={currCompany.registerationLink}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Apply Now
-        </a>
-
-        {isAdmin && (
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="bg-blue-500 text-white px-4 py-2 mt-4 rounded"
-          >
-            Update
-          </button>
+        {isExpanded && (
+          <>
+            <p>{currCompany.companyInfo}</p>
+            <div>
+              <span>{currCompany.jobTitle}</span>
+              <span>{currCompany.payPackage}</span>
+            </div>
+            <p>{currCompany.jobDescription}</p>
+            <div>{currCompany.eligibility}</div>
+            {currCompany.bond && (
+              <div>
+                <p>Bond:</p>
+                {currCompany.bondDescription}
+              </div>
+            )}
+            <div>
+              <strong>Apply by:</strong> {new Date(company.formDeadline).toLocaleDateString()}
+            </div>
+            {isAdmin && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsModalOpen(true);
+                }}
+                className="bg-blue-500 text-white px-4 py-2 mt-4 rounded m-4 cursor-pointer"
+              >
+                Update
+              </button>
+            )}
+          </>
         )}
       </div>
 
@@ -97,22 +123,102 @@ const Card = ({ company, isAdmin }) => {
           <div className="bg-white p-6 rounded-lg w-[90%] max-w-xl">
             <h2 className="text-xl font-bold mb-4">Update Company</h2>
             <form onSubmit={handleUpdateSubmit} className="space-y-3">
-              <input type="text" name="companyName" value={formData.companyName} onChange={handleInputChange} className="w-full border p-2 rounded" placeholder="Company Name" />
-              <textarea name="companyInfo" value={formData.companyInfo} onChange={handleInputChange} className="w-full border p-2 rounded" placeholder="Company Info" />
-              <input type="text" name="jobTitle" value={formData.jobTitle} onChange={handleInputChange} className="w-full border p-2 rounded" placeholder="Job Title" />
-              <input type="text" name="payPackage" value={formData.payPackage} onChange={handleInputChange} className="w-full border p-2 rounded" placeholder="Pay Package" />
-              <textarea name="jobDescription" value={formData.jobDescription} onChange={handleInputChange} className="w-full border p-2 rounded" placeholder="Job Description" />
-              <input type="text" name="eligibility" value={formData.eligibility} onChange={handleInputChange} className="w-full border p-2 rounded" placeholder="Eligibility" />
-              <input type="checkbox" name="bond" checked={formData.bond} onChange={(e) => setFormData(prev => ({ ...prev, bond: e.target.checked }))} /> Bond Required
+              <input
+                type="text"
+                name="companyName"
+                value={formData.companyName}
+                onChange={handleInputChange}
+                className="w-full border p-2 rounded"
+                placeholder="Company Name"
+              />
+              <textarea
+                name="companyInfo"
+                value={formData.companyInfo}
+                onChange={handleInputChange}
+                className="w-full border p-2 rounded"
+                placeholder="Company Info"
+              />
+              <input
+                type="text"
+                name="jobTitle"
+                value={formData.jobTitle}
+                onChange={handleInputChange}
+                className="w-full border p-2 rounded"
+                placeholder="Job Title"
+              />
+              <input
+                type="text"
+                name="payPackage"
+                value={formData.payPackage}
+                onChange={handleInputChange}
+                className="w-full border p-2 rounded"
+                placeholder="Pay Package"
+              />
+              <textarea
+                name="jobDescription"
+                value={formData.jobDescription}
+                onChange={handleInputChange}
+                className="w-full border p-2 rounded"
+                placeholder="Job Description"
+              />
+              <input
+                type="text"
+                name="eligibility"
+                value={formData.eligibility}
+                onChange={handleInputChange}
+                className="w-full border p-2 rounded"
+                placeholder="Eligibility"
+              />
+              <input
+                type="checkbox"
+                name="bond"
+                checked={formData.bond}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, bond: e.target.checked }))
+                }
+              />{" "}
+              Bond Required
               {formData.bond && (
-                <input type="text" name="bondDescription" value={formData.bondDescription} onChange={handleInputChange} className="w-full border p-2 rounded" placeholder="Bond Description" />
+                <input
+                  type="text"
+                  name="bondDescription"
+                  value={formData.bondDescription}
+                  onChange={handleInputChange}
+                  className="w-full border p-2 rounded"
+                  placeholder="Bond Description"
+                />
               )}
-              <input type="date" name="formDeadline" value={formData.formDeadline?.slice(0, 10)} onChange={handleInputChange} className="w-full border p-2 rounded" />
-              <input type="url" name="registerationLink" value={formData.registerationLink} onChange={handleInputChange} className="w-full border p-2 rounded" placeholder="Registration Link" />
+              <input
+                type="date"
+                name="formDeadline"
+                value={formData.formDeadline?.slice(0, 10)}
+                onChange={handleInputChange}
+                className="w-full border p-2 rounded"
+              />
+              <input
+                type="url"
+                name="registerationLink"
+                value={formData.registerationLink}
+                onChange={handleInputChange}
+                className="w-full border p-2 rounded"
+                placeholder="Registration Link"
+              />
 
               <div className="flex justify-end gap-2">
-                <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 bg-gray-300 rounded">Cancel</button>
-                <button onClick={handleUpdate} type="submit" className="px-4 py-2 bg-green-500 text-white rounded">Update</button>
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-4 py-2 bg-gray-300 rounded"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleUpdate}
+                  type="submit"
+                  className="px-4 py-2 bg-green-500 text-white rounded"
+                >
+                  Update
+                </button>
               </div>
             </form>
           </div>

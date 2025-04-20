@@ -1,16 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import useGlobalUserObject from '../store/store';
+import { CiSearch } from "react-icons/ci";
 
 const Navbar = () => {
-    const user=useGlobalUserObject((state)=>state.user)
-    const setLogout=useGlobalUserObject((state)=>state.setLogout)
-    const navigate=useNavigate();
-    const [loggedIn,setLoggedIn]=useState(false);
+    const user = useGlobalUserObject((state)=>state.user)
+    const setLogout = useGlobalUserObject((state)=>state.setLogout)
+    const navigate = useNavigate();
+    const [loggedIn,setLoggedIn] = useState(false);
+    const isLoggedIn = useGlobalUserObject((state) => state.isLoggedIn);
+    const checkTokenExpiry = useGlobalUserObject((state) => state.checkTokenExpiry);
 
     useEffect(()=>{
       if(user) setLoggedIn(true);
     },[user])
+
+    useEffect(()=>{
+      if(loggedIn){
+        const isValid = checkTokenExpiry();
+        if(!isValid){
+          handleLogout();
+        }
+      }
+
+      const tokenCheckInterval = setInterval(() => {
+        if(loggedIn){
+          const isValid = checkTokenExpiry();
+          if(!isValid){
+            handleLogout();
+          }
+        }
+      }, 60000);
+
+      return () => clearInterval(tokenCheckInterval);
+    }, [loggedIn, checkTokenExpiry])
 
     const handleLogout=()=>{
       setLogout();
@@ -39,7 +62,15 @@ const Navbar = () => {
               <Link to={"/#Recruit"}>Why Recruit</Link>
               <Link to={"/login"}>Login</Link> 
         </div>}
-            {loggedIn && <div className='flex gap-5'>
+            {loggedIn && <div className='flex gap-5 justify-around items-center'>
+              <div className='flex items-center justify-between px-2 py-1 border border-gray-300 rounded-full'>
+                <CiSearch className='text-white font-bold'/>
+                <input type="search" placeholder='search companies' 
+                className='w-full focus:outline-none ml-2 placeholder-white'/>
+              </div>
+                {user?.role === 'admin' && (
+                    <Link to='/register-company' className='hover:scale-90 px-5 '> Recruit </Link>
+                )}
                 <Link to={"/dashboard"} className='hover:scale-90'>Dashboard</Link>
                 <div onClick={handleLogout} className='hover:scale-90 px-5 cursor-pointer'>Logout</div>
                 <Link to={`/${user?.name}`} className='hover:scale-90 px-5><button '>{user?.name}</Link>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { registerCompany } from './dashboardService';
+import { registerCompany } from '../Services/dashboardService';
 import { useNavigate } from 'react-router-dom';
 
 const RegisterCompany = ()=>{

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { getAdminDashboard, getStudentDashboard } from './dashboardService'
+import { getAdminDashboard, getStudentDashboard } from '../Services/dashboardService'
 import Card from '../Components/Card' 
 import useGlobalUserObject from '../store/store'
 import { Link } from 'react-router-dom'
 
 const Dashboard = () => {
+  const [expandedCardId, setExpandedCardId] = useState(null);
   const [companies, setCompanies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -55,17 +56,12 @@ const Dashboard = () => {
   return (
     <>
       <div className=''>
-        <div>
-          <h1>{isAdmin ? "Admin Dashboard":"Student Dashboard"}</h1>
-          {isAdmin && (
-            <Link to='/register-company'> Register New Company</Link>
-          )}
-        </div>
 
         {companies && companies.length > 0 ? (
-          <div>
+          <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 p-5'>
             {companies.map((company) => (
-              <Card key={company._id} company={company} isAdmin={isAdmin}/>
+              <Card key={company._id} company={company} isAdmin={isAdmin} 
+              isExpanded={expandedCardId === company._id} setExpandedCardId={setExpandedCardId}/>
             ))}
           </div>
         ) : (
