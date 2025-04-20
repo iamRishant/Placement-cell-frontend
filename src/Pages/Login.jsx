@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { form } from "framer-motion/client";
 import { useNavigate } from "react-router-dom";
 import useGlobalUserObject from "../store/store";
 

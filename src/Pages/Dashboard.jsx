@@ -35,6 +35,18 @@ const Dashboard = () => {
       fetchDashboard();
     } 
   }, [user, isAdmin]);
+  
+  useEffect(() => {
+    if(expandedCardId){
+      document.body.style.overflow = 'hidden';
+    }else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return ()=>{
+      document.body.style.overflow = 'auto';
+    }
+  }, [expandedCardId]);
 
   if(loading){
     return (
@@ -55,17 +67,28 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className=''>
+      <div className='relative'>
+        {expandedCardId && (
+            <div
+              className='fixed inset-0 bg-black opacity-50 z-40'
+              onClick={() => setExpandedCardId(null)}
+            />
+          )}
 
         {companies && companies.length > 0 ? (
           <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 p-5'>
             {companies.map((company) => (
-              <Card key={company._id} company={company} isAdmin={isAdmin} 
-              isExpanded={expandedCardId === company._id} setExpandedCardId={setExpandedCardId}/>
+              <Card 
+                key={company._id} 
+                company={company} 
+                isAdmin={isAdmin} 
+                isExpanded={expandedCardId === company._id} 
+                setExpandedCardId={setExpandedCardId}
+              />
             ))}
           </div>
         ) : (
-          <div>No Campanies Available At The Moment..</div>
+          <div className="text-center p-8 text-gray-500">No Campanies Available At The Moment..</div>
         )}
       </div>
     </>
