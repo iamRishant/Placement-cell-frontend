@@ -8,7 +8,6 @@ const Navbar = () => {
     const setLogout = useGlobalUserObject((state)=>state.setLogout)
     const navigate = useNavigate();
     const [loggedIn,setLoggedIn] = useState(false);
-    const isLoggedIn = useGlobalUserObject((state) => state.isLoggedIn);
     const checkTokenExpiry = useGlobalUserObject((state) => state.checkTokenExpiry);
 
     useEffect(()=>{
