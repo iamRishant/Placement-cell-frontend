@@ -40,7 +40,7 @@ const Homepage = () => {
           </Button>
           <Button>
             <MdVerified className="mr-2" />
-            <a href="/signup">Verifier</a>
+            <a href="/student/verify">Verifier</a>
           </Button>
         </section>
       </div>

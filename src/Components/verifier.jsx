@@ -12,7 +12,7 @@ const Verifier = () => {
   // Function to validate university email
   const isUniversityEmail = (email) => {
     // Replace with your university domain
-    return email.endsWith('@cuchd.in');
+    return email.endsWith('@cuchd.in');  
   };
 
   // Send verification email
@@ -62,7 +62,7 @@ const Verifier = () => {
         })
         .then((idToken) => {
           // Send the token to your backend
-          return axios.post('http://localhost:8000/api/verify-university-email', {
+          return axios.post('http://localhost:8000/api/user/verify-email', {
             idToken,
             email
           });
