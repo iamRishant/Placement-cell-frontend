@@ -9,7 +9,7 @@ import UserProfile from './Pages/UserProfile'
 import Protected from './Pages/AuthLayout'
 import useGlobalUserObject from './store/store'
 import RegisterCompany from './Pages/RegisterCompany'
-import Verifier from './Components/verifier'
+import Verifier from './Components/Verifier'
 
 const App = () => {
 
