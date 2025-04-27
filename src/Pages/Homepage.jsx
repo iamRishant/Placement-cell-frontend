@@ -3,8 +3,6 @@ import Button from "../Components/Button";
 import { PiStudent } from "react-icons/pi";
 import { RiAdminLine, RiHomeOfficeFill } from "react-icons/ri";
 import { MdVerified } from "react-icons/md";
-import { motion } from "framer-motion";
-import Card from "../Components/Card";
 
 const Homepage = () => {
   return (

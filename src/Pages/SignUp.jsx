@@ -91,6 +91,7 @@ const SignUp = () => {
 
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+      <h1 className="text-3xl font-bold text-center">Only verified user can sign up</h1>
       <h2 className="text-2xl font-semibold text-center">Signup</h2>
       {error && <p className="text-red-500 text-center">{error}</p>}
       <form onSubmit={handleSubmit} className="mt-4">

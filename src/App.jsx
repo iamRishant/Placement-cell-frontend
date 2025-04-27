@@ -13,7 +13,6 @@ import Verifier from './Components/verifier'
 
 const App = () => {
 
-  const authStatus = useGlobalUserObject((state) => state.isLoggedIn);
   const loadUserFromStorage = useGlobalUserObject((state) => state.loadUserFromStorage);
 
   useEffect(() => {
