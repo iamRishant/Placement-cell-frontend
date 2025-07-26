@@ -8,7 +8,7 @@ const useGlobalUserObject=create((set, get)=>({
         localStorage.setItem("token", token);
         localStorage.setItem("currUser", JSON.stringify(user));
         set({ isLoggedIn: true, user: { ...user, token } });
-      },
+      },  
     setLogout: () => {
         localStorage.removeItem("token");
         localStorage.removeItem("currUser")

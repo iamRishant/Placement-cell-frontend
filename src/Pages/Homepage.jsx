@@ -1,4 +1,3 @@
-import React from "react";
 import Button from "../Components/Button";
 import { PiStudent } from "react-icons/pi";
 import { RiAdminLine, RiHomeOfficeFill } from "react-icons/ri";
@@ -30,7 +29,7 @@ const Homepage = () => {
           </Button>
           <Button>
             <RiAdminLine className="mr-2" />
-            <a href="/signup">Admin</a>
+            <a href="/login">Admin</a>
           </Button>
           <Button>
             <RiHomeOfficeFill className="mr-2" />

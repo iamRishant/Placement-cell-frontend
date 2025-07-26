@@ -1,7 +1,8 @@
 import React, { useState, useRef } from 'react';
 
 export default function VerifyEmail({ onDone }) {
-  const [step, setStep]         = useState('email');  // 'email' | 'code' | 'done'
+  const [step, setStep]         = useState('email'); 
+  // 'email' | 'code' | 'done'
   const [email, setEmail]       = useState('');
   const [sending, setSending]   = useState(false);
   const [verifying, setVerifying] = useState(false);
@@ -81,7 +82,7 @@ export default function VerifyEmail({ onDone }) {
           <h3 className="text-lg font-medium">Verify your CUCHD Email</h3>
           <input
             type="email"
-            placeholder="you@cuchd.in"
+            placeholder="uid@cuchd.in"
             value={email}
             onChange={e => setEmail(e.target.value)}
             className="w-full p-2 border rounded"
